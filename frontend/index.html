@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model Comparison Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 ML Model Comparison Dashboard</h1>
+            <p>Train, Compare & Optimize Multiple ML Algorithms</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <h2>Let's Get Started: Upload Your Dataset</h2>
+                <div class="upload-area">
+                    <input type="file" id="csvFile" accept=".csv" />
+                    <label for="csvFile" class="file-label">
+                        <span>📁 Click to upload CSV file</span>
+                    </label>
+                </div>
+                
+                <div class="target-selection">
+                    <label for="targetColumn">Target Column:</label>
+                    <select id="targetColumn" disabled>
+                        <option value="">Select target column...</option>
+                    </select>
+                </div>
+
+                <button id="uploadBtn" class="btn btn-primary" disabled>
+                    Upload & Preprocess
+                </button>
+
+                <div id="uploadStatus" class="status-message"></div>
+            </section>
+
+            <!-- Training Section -->
+            <section class="training-section" style="display: none;">
+                <h2>click to Train Models</h2>
+                <button id="trainBtn" class="btn btn-success">
+                    Train All Models
+                </button>
+                <div id="trainingStatus" class="status-message"></div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" style="display: none;">
+                <h2>📊 Model Comparison Results</h2>
+                
+                <!-- Metrics Table -->
+                <div class="results-container">
+                    <h3>Performance Metrics</h3>
+                    <div id="resultsTable" class="table-responsive">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+                <!-- Best Model -->
+                <div class="best-model-box">
+                    <h3>🏆 Best Performing Model</h3>
+                    <div id="bestModel"></div>
+                </div>
+
+                <!-- Feature Importance -->
+                <div class="feature-importance-section">
+                    <h3>⭐ Feature Importance</h3>
+                    <div class="model-selector">
+                        <label for="featureModelSelect">Select Model:</label>
+                        <select id="featureModelSelect"></select>
+                    </div>
+                    <div id="featureImportancePlot" style="height: 400px;"></div>
+                </div>
+
+                <!-- Hyperparameter Tuning -->
+                <div class="tuning-section">
+                    <h3>⚙️ Hyperparameter Tuning</h3>
+                    <div class="model-selector">
+                        <label for="tuneModelSelect">Select Model:</label>
+                        <select id="tuneModelSelect"></select>
+                    </div>
+                    
+                    <div id="tuningParams" class="tuning-params">
+                        <!-- Dynamically populated based on selected model -->
+                    </div>
+                    
+                    <button id="tuneBtn" class="btn btn-info">
+                        Retrain with New Parameters
+                    </button>
+                    
+                    <div id="tuningResults" class="status-message"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
