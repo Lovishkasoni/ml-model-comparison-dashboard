@@ -40,7 +40,7 @@ A powerful web-based machine learning dashboard that allows you to **train, comp
 
 - **Docker & Docker Compose** (Recommended)
   - Download: https://www.docker.com/products/docker-desktop
-- **OR Python 3.9+** with pip (Alternative)
+- **OR Python 3.11+** with pip (Alternative)
 
 ### Installation & Setup
 
