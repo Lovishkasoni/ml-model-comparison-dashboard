@@ -3,7 +3,7 @@
 A powerful web-based machine learning dashboard that allows you to **train, compare, and optimize multiple ML algorithms** on your dataset. Perfect for data scientists, students, and ML enthusiasts!
 
 ![Status](https://img.shields.io/badge/status-active-success.svg)
-![Python](https://img.shields.io/badge/python-3.9+-blue.svg)
+![Python](https://img.shields.io/badge/python-3.11+-blue.svg)
 ![Flask](https://img.shields.io/badge/flask-2.3+-red.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
