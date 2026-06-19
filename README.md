@@ -90,7 +90,7 @@ python backend/app.py
 ### Step 1️⃣: Upload Your Dataset
 
 1. Open `http://localhost:5000` in your browser
-2. Click the **📤 upload area** to select your CSV file
+2. Click the **📤 upload area** to select your CSV file or you can download the sample dataset from backend/customer_churn_dataset.csv
 3. Choose the **Target Column** (what you want to predict)
 4. Click **"Upload & Preprocess"**
 
