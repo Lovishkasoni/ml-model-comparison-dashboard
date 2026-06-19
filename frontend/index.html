@@ -10,7 +10,8 @@
 <body>
     <div class="container">
         <header>
-            <h1>🤖 ML Model Comparison Dashboard</h1>
+            <h1>~ML Model Comparison Dashboard~
+            </h1>
             <p>Train, Compare & Optimize Multiple ML Algorithms</p>
         </header>
 
@@ -21,7 +22,7 @@
                 <div class="upload-area">
                     <input type="file" id="csvFile" accept=".csv" />
                     <label for="csvFile" class="file-label">
-                        <span>📁 Click to upload CSV file</span>
+                        <span>- Click to upload CSV file</span>
                     </label>
                 </div>
                 
@@ -50,7 +51,7 @@
 
             <!-- Results Section -->
             <section class="results-section" style="display: none;">
-                <h2>📊 Model Comparison Results</h2>
+                <h2>- Model Comparison Results</h2>
                 
                 <!-- Metrics Table -->
                 <div class="results-container">
@@ -62,13 +63,13 @@
 
                 <!-- Best Model -->
                 <div class="best-model-box">
-                    <h3>🏆 Best Performing Model</h3>
+                    <h3><b>~Best Performing Model~</b></h3>
                     <div id="bestModel"></div>
                 </div>
 
                 <!-- Feature Importance -->
                 <div class="feature-importance-section">
-                    <h3>⭐ Feature Importance</h3>
+                    <h3> Feature Importance</h3>
                     <div class="model-selector">
                         <label for="featureModelSelect">Select Model:</label>
                         <select id="featureModelSelect"></select>
@@ -78,7 +79,7 @@
 
                 <!-- Hyperparameter Tuning -->
                 <div class="tuning-section">
-                    <h3>⚙️ Hyperparameter Tuning</h3>
+                    <h3>- Hyperparameter Tuning</h3>
                     <div class="model-selector">
                         <label for="tuneModelSelect">Select Model:</label>
                         <select id="tuneModelSelect"></select>
@@ -96,6 +97,11 @@
                 </div>
             </section>
         </div>
+        <footer>
+            <p>&copy; 2026 ML Model Comparison Dashboard. All rights reserved.</p>
+            <p>Made by <a href="https://www.linkedin.com/in/lovishkasoni" target="_blank">Lovishka Soni</a></p>
+
+        </footer>
     </div>
 
     <script src="script.js"></script>
