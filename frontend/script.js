@@ -19,7 +19,7 @@ const featureImportancePlot = document.getElementById('featureImportancePlot');
 const tuningParamsDiv = document.getElementById('tuningParams');
 const tuneBtn = document.getElementById('tuneBtn');
 const tuningResults = document.getElementById('tuningResults');
-
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 // File Upload Handler
 csvFile.addEventListener('change', function(e) {
     const fileName = e.target.files[0]?.name || 'Select file...';
