@@ -327,3 +327,10 @@ table tr:hover {
         padding: 8px;
     }
 }
+footer{
+    color: #ffffff;
+}
+.footer-link{
+    color: #ffffff;
+    text-decoration: none;
+}
