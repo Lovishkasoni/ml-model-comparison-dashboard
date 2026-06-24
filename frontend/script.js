@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || window.location.origin;
+const API_BASE = window.location.origin;
 
 let uploadedColumns = [];
 let trainedModels = [];
