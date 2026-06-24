@@ -39,17 +39,11 @@ class MLModelComparison:
 
             
 
-                'XGBoost': XGBClassifier(
+                'XGBoost': XGBRegressor(
                     n_estimators=50,
                     max_depth=5,
                     learning_rate=0.1,
                     random_state=42,
-                    n_jobs=-1,
-                    eval_metric='logloss'
-                ),
-
-                'KNN': KNeighborsClassifier(
-                    n_neighbors=5,
                     n_jobs=-1
                 ),
 
@@ -62,15 +56,13 @@ class MLModelComparison:
             self.models = {
                 'Linear Regression': LinearRegression(n_jobs=-1),
                 'Random Forest': RandomForestRegressor(n_estimators=5, max_depth=10, random_state=42, n_jobs=-1),
-                'XGBoost': XGBClassifier(
+                'XGBoost': XGBRegressor(
                     n_estimators=50,
                     max_depth=5,
                     learning_rate=0.1,
                     random_state=42,
-                    n_jobs=-1,
-                    eval_metric='logloss'
+                    n_jobs=-1
                 ),
-                'KNN': KNeighborsRegressor(n_neighbors=5, n_jobs=-1),
                 'Decision Tree': DecisionTreeRegressor(max_depth=5, random_state=42),
             }
     
