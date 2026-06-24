@@ -11,7 +11,7 @@ import joblib
 import json
 from xgboost import XGBClassifier, XGBRegressor
 from sklearn.model_selection import cross_val_score
-
+import time 
 class MLModelComparison:
     def __init__(self, problem_type='classification'):
         self.problem_type = problem_type
@@ -79,12 +79,17 @@ class MLModelComparison:
         self.results = {}
         self.feature_importance = {}
         
+
         for model_name, model in self.models.items():
-            print(f"Training {model_name}...")
-            
-            # Train
+            print(f" STARTING {model_name} ")
+
+            start = time.time()
+
             model.fit(X_train, y_train)
-            
+
+            elapsed = time.time() - start
+
+            print(f" {model_name} DONE IN ({elapsed:.2f} sec) ")
         
             # Predict
             y_pred = model.predict(X_test)
