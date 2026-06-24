@@ -10,6 +10,8 @@ from sklearn.metrics import (accuracy_score, precision_score, recall_score, f1_s
                              mean_squared_error, mean_absolute_error, r2_score)
 import joblib
 import json
+from xgboost import XGBClassifier, XGBRegressor
+from sklearn.model_selection import cross_val_score
 
 class MLModelComparison:
     def __init__(self, problem_type='classification'):
@@ -23,19 +25,56 @@ class MLModelComparison:
         """Initialize all models based on problem type - OPTIMIZED FOR SPEED"""
         if self.problem_type == 'classification':
             self.models = {
-                'Logistic Regression': LogisticRegression(max_iter=100, random_state=42, n_jobs=-1),
-                'Random Forest': RandomForestClassifier(n_estimators=5, max_depth=10, random_state=42, n_jobs=-1),
-                'SVM': SGDClassifier(max_iter=1000),
-                'XGBoost': GradientBoostingClassifier(n_estimators=10, learning_rate=0.1, max_depth=5, random_state=42),
-                'KNN': KNeighborsClassifier(n_neighbors=5, n_jobs=-1),
-                'Decision Tree': DecisionTreeClassifier(max_depth=5, random_state=42),
+                'Logistic Regression': LogisticRegression(
+                    max_iter=300,
+                    random_state=42,
+                    n_jobs=-1
+                ),
+
+                'Random Forest': RandomForestClassifier(
+                    n_estimators=50,
+                    max_depth=10,
+                    random_state=42,
+                    n_jobs=-1
+                ),
+
+                'SVM': SGDClassifier(
+                    max_iter=1000,
+                    random_state=42
+                ),
+
+                'XGBoost': XGBClassifier(
+                    n_estimators=50,
+                    max_depth=5,
+                    learning_rate=0.1,
+                    random_state=42,
+                    n_jobs=-1,
+                    eval_metric='logloss'
+                ),
+
+                'KNN': KNeighborsClassifier(
+                    n_neighbors=5,
+                    n_jobs=-1
+                ),
+
+                'Decision Tree': DecisionTreeClassifier(
+                    max_depth=10,
+                    random_state=42
+                )
             }
         else:  # regression
             self.models = {
                 'Linear Regression': LinearRegression(n_jobs=-1),
                 'Random Forest': RandomForestRegressor(n_estimators=5, max_depth=10, random_state=42, n_jobs=-1),
                 'SVM': SVR(kernel='rbf'),
-                'XGBoost': GradientBoostingRegressor(n_estimators=10, learning_rate=0.1, max_depth=5, random_state=42),
+                'XGBoost': XGBClassifier(
+                    n_estimators=50,
+                    max_depth=5,
+                    learning_rate=0.1,
+                    random_state=42,
+                    n_jobs=-1,
+                    eval_metric='logloss'
+                ),
                 'KNN': KNeighborsRegressor(n_neighbors=5, n_jobs=-1),
                 'Decision Tree': DecisionTreeRegressor(max_depth=5, random_state=42),
             }
@@ -51,6 +90,15 @@ class MLModelComparison:
             # Train
             model.fit(X_train, y_train)
             
+            # Cross Validation
+            cv_score = cross_val_score(
+                model,
+                X_train,
+                y_train,
+                cv=3,
+                scoring='accuracy' if self.problem_type == 'classification' else 'r2'
+            ).mean()
+
             # Predict
             y_pred = model.predict(X_test)
             

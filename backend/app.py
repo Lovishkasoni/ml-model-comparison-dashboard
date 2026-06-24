@@ -4,6 +4,9 @@ import os
 from data_processor import DataProcessor
 from ml_models import MLModelComparison
 import traceback
+import time
+from sklearn.metrics import confusion_matrix
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FRONTEND_DIR = os.path.join(BASE_DIR, '../frontend')
@@ -50,7 +53,10 @@ def upload_file():
             return jsonify({'error': f'File load error: {error}'}), 400
         
         # Preprocess data
+        start_time = time.time()
         result, error = data_processor.preprocess(df, target_column)
+        preprocess_time = round(time.time() - start_time, 2)
+        print(f"PREPROCESS TIME: {preprocess_time} sec")
         
         if error:
             return jsonify({'error': f'Preprocessing error: {error}'}), 400
@@ -73,7 +79,8 @@ def upload_file():
             'n_features': result['n_features'],
             'n_samples': result['n_samples'],
             'features': result['features'],
-            'removed_features': result.get('removed_features', [])
+            'removed_features': result.get('removed_features', []),
+            'preprocess_time': preprocess_time
         }), 200
         
     except Exception as e:
@@ -89,13 +96,19 @@ def train_models():
         if ml_comparison is None or current_data is None:
             return jsonify({'error': 'No data loaded. Please upload a file first.'}), 400
         
+        start_time = time.time()
+
         results = ml_comparison.train_all_models(
             current_data['X_train'],
             current_data['X_test'],
             current_data['y_train'],
             current_data['y_test']
         )
-        
+
+        training_time = round(time.time() - start_time, 2)
+
+        print(f"TRAIN TIME: {training_time} sec")
+                
         # Convert to JSON-serializable format
         results_json = {}
         for model_name, metrics in results.items():
@@ -106,13 +119,28 @@ def train_models():
         return jsonify({
             'success': True,
             'results': results_json,
-            'best_model': best_model
+            'best_model': best_model,
+            'training_time': training_time
         }), 200
         
     except Exception as e:
         traceback.print_exc()
         return jsonify({'error': f'Training error: {str(e)}'}), 500
+@app.route('/confusion-matrix/<model_name>')
+def confusion_matrix_route(model_name):
 
+    model = ml_comparison.models[model_name]
+
+    y_pred = model.predict(current_data['X_test'])
+
+    cm = confusion_matrix(
+        current_data['y_test'],
+        y_pred
+    )
+
+    return jsonify({
+        'matrix': cm.tolist()
+    })
 @app.route('/feature-importance/<model_name>', methods=['GET'])
 def get_feature_importance(model_name):
     """Get feature importance for a model"""
