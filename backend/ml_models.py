@@ -10,6 +10,7 @@ from sklearn.metrics import (accuracy_score, precision_score, recall_score, f1_s
 import joblib
 import json
 from xgboost import XGBClassifier, XGBRegressor
+
 from sklearn.model_selection import cross_val_score
 import time 
 class MLModelComparison:
@@ -21,9 +22,12 @@ class MLModelComparison:
         self._initialize_models()
     
     def _initialize_models(self):
-        """Initialize all models based on problem type - OPTIMIZED FOR SPEED"""
+        """Initialize models based on problem type"""
+
         if self.problem_type == 'classification':
+
             self.models = {
+
                 'Logistic Regression': LogisticRegression(
                     max_iter=300,
                     random_state=42,
@@ -37,14 +41,13 @@ class MLModelComparison:
                     n_jobs=-1
                 ),
 
-            
-
-                'XGBoost': XGBRegressor(
-                    n_estimators=50,
+                'XGBoost': XGBClassifier(
+                    n_estimators=20,
                     max_depth=5,
                     learning_rate=0.1,
                     random_state=42,
-                    n_jobs=-1
+                    n_jobs=-1,
+                    eval_metric='logloss'
                 ),
 
                 'Decision Tree': DecisionTreeClassifier(
@@ -52,20 +55,36 @@ class MLModelComparison:
                     random_state=42
                 )
             }
+
         else:  # regression
+
             self.models = {
-                'Linear Regression': LinearRegression(n_jobs=-1),
-                'Random Forest': RandomForestRegressor(n_estimators=5, max_depth=10, random_state=42, n_jobs=-1),
-                'XGBoost': XGBRegressor(
+
+                'Linear Regression': LinearRegression(
+                    n_jobs=-1
+                ),
+
+                'Random Forest': RandomForestRegressor(
                     n_estimators=50,
+                    max_depth=10,
+                    random_state=42,
+                    n_jobs=-1
+                ),
+
+                'XGBoost': XGBRegressor(
+                    n_estimators=20,
                     max_depth=5,
                     learning_rate=0.1,
                     random_state=42,
                     n_jobs=-1
                 ),
-                'Decision Tree': DecisionTreeRegressor(max_depth=5, random_state=42),
+
+                'Decision Tree': DecisionTreeRegressor(
+                    max_depth=10,
+                    random_state=42
+                )
             }
-    
+        
     def train_all_models(self, X_train, X_test, y_train, y_test):
         """Train all models and evaluate"""
         self.results = {}
