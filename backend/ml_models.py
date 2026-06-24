@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression, LinearRegression
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor, GradientBoostingClassifier, GradientBoostingRegressor
-from sklearn.svm import SVC, SVR
 from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
 from sklearn.linear_model import SGDClassifier
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
@@ -38,10 +37,7 @@ class MLModelComparison:
                     n_jobs=-1
                 ),
 
-                'SVM': SGDClassifier(
-                    max_iter=1000,
-                    random_state=42
-                ),
+            
 
                 'XGBoost': XGBClassifier(
                     n_estimators=50,
@@ -66,7 +62,6 @@ class MLModelComparison:
             self.models = {
                 'Linear Regression': LinearRegression(n_jobs=-1),
                 'Random Forest': RandomForestRegressor(n_estimators=5, max_depth=10, random_state=42, n_jobs=-1),
-                'SVM': SVR(kernel='rbf'),
                 'XGBoost': XGBClassifier(
                     n_estimators=50,
                     max_depth=5,
@@ -90,15 +85,7 @@ class MLModelComparison:
             # Train
             model.fit(X_train, y_train)
             
-            # Cross Validation
-            cv_score = cross_val_score(
-                model,
-                X_train,
-                y_train,
-                cv=3,
-                scoring='accuracy' if self.problem_type == 'classification' else 'r2'
-            ).mean()
-
+        
             # Predict
             y_pred = model.predict(X_test)
             
