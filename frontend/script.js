@@ -54,8 +54,18 @@ uploadBtn.addEventListener('click', async function() {
             throw new Error(data.error);
         }
 
-        showStatus(uploadStatus, `✅ Data preprocessed! Problem type: ${data.problem_type}`, 'success');
-        
+        showStatus(
+            uploadStatus,
+            `
+            ✅ Dataset Loaded<br>
+            Problem Type: ${data.problem_type}<br>
+            Samples: ${data.n_samples}<br>
+            Features: ${data.n_features}<br>
+            Preprocessing Time: ${data.preprocess_time} sec
+            `,
+            'success'
+        );
+
         // Show training section
         document.querySelector('.training-section').style.display = 'block';
         
@@ -85,8 +95,11 @@ trainBtn.addEventListener('click', async function() {
             throw new Error(data.error);
         }
 
-        showStatus(trainingStatus, '✅ Training completed!', 'success');
-        
+        showStatus(
+            trainingStatus,
+            `✅ Training completed in ${data.training_time} sec`,
+            'success'
+        );
         // Display results
         displayResults(data.results, data.best_model);
         trainedModels = Object.keys(data.results);
