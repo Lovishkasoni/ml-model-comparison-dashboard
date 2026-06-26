@@ -261,7 +261,6 @@ This project is licensed under the **MIT License** - see LICENSE file for detail
 
 ---
 
-
 Give this project a ⭐ if you found it helpful!
 
 ---
