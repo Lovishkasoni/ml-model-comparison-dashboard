@@ -1,4 +1,4 @@
-# 🤖 ML Model Comparison Dashboard
+#  ML Model Comparison Dashboard
 
 A powerful web-based machine learning dashboard that allows you to **train, compare, and optimize multiple ML algorithms** on your dataset. Perfect for data scientists, students, and ML enthusiasts!
 
@@ -9,97 +9,43 @@ A powerful web-based machine learning dashboard that allows you to **train, comp
 
 ---
 
-## 🌟 Features
+##  Features
 
-### ✨ Core Capabilities
+###  Core Capabilities
 
-- **📤 Easy Data Upload**: Upload any CSV file (classification or regression)
-- **🤖 7 ML Algorithms**: Train multiple models simultaneously
+- **Easy Data Upload**: Upload any CSV file (classification or regression)
+- **ML Algorithms**: Train multiple models simultaneously
   - Logistic Regression
   - Linear Regression
   - Random Forest
-  - Support Vector Machine (SVM)
-  - XGBoost (Gradient Boosting)
-  - K-Nearest Neighbors (KNN)
+  - XGBoost (Gradient Boosting0
   - Decision Tree
 
-- **📊 Comprehensive Metrics Comparison**:
+- **Comprehensive Metrics Comparison**:
   - **Classification**: Accuracy, Precision, Recall, F1-Score, ROC-AUC
   - **Regression**: MSE, RMSE, MAE, R² Score
 
-- **⭐ Feature Importance Visualization**: Understand which features drive predictions
-- **⚙️ Hyperparameter Tuning**: Adjust model parameters and retrain instantly
-- **🎯 Best Model Recommendation**: Automatic identification of top-performing model
-- **🐳 Docker Ready**: One-command deployment with Docker Compose
+- **Feature Importance Visualization**: Understand which features drive predictions
+- **Hyperparameter Tuning**: Adjust model parameters and retrain instantly
+- **Best Model Recommendation**: Automatic identification of top-performing model
 
----
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- **Docker & Docker Compose** (Recommended)
-  - Download: https://www.docker.com/products/docker-desktop
-- **OR Python 3.11+** with pip (Alternative)
-
-### Installation & Setup
-
-#### **Option 1: Docker (Recommended - Easiest)** 🐳
-
-```bash
-# Clone the repository
-git clone https://github.com/Lovishkasonii/ml-model-comparison-dashboard.git
-cd ml-model-comparison-dashboard
-
-# Build and run with Docker
-docker-compose build
-docker-compose up
-```
-
-**Access at**: `http://localhost:5000`
-
-#### **Option 2: Local Setup (Python)** 🐍
-
-```bash
-# Clone the repository
-git clone https://github.com/Lovishkasonii/ml-model-comparison-dashboard.git
-cd ml-model-comparison-dashboard
-
-# Create virtual environment
-python -m venv venv
-
-# Activate virtual environment
-# On Windows:
-venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
-
-# Install dependencies
-pip install -r backend/requirements.txt
-
-# Run the Flask app
-python backend/app.py
-```
-
-**Access at**: `http://localhost:5000`
-
----
+**Access at**: `https://ml-model-comparison-dashboard.onrender.com`
 
 ## 📖 Usage Guide
 
 ### Step 1️⃣: Upload Your Dataset
 
-1. Open `http://localhost:5000` in your browser
-2. Click the **📤 upload area** to select your CSV file or you can download the sample dataset from backend/customer_churn_dataset.csv
+1. Open `https://ml-model-comparison-dashboard.onrender.com` in your browser
+2. Click the **upload area** to select your CSV file or you can download the sample dataset from backend/customer_churn_dataset.csv
 3. Choose the **Target Column** (what you want to predict)
 4. Click **"Upload & Preprocess"**
 
-**✅ Supported Formats:**
+**Supported Formats:**
 - CSV files with numeric and categorical features
 - Classification datasets (binary or multi-class)
 - Regression datasets (continuous target)
 
-**⚠️ Data Cleaning Tips:**
+**Data Cleaning Tips:**
 - Remove ID columns (CustomerID, RowNumber, etc.)
 - Handle missing values before upload
 - Ensure target column exists
@@ -111,10 +57,10 @@ python backend/app.py
 3. Dashboard displays results automatically
 
 **What Happens:**
-- ✅ All 7 models train on your data
-- ✅ Metrics calculated for each model
-- ✅ Best model highlighted
-- ✅ Feature importance computed
+- All the models train on your data
+- Metrics calculated for each model
+- Best model highlighted
+- Feature importance computed
 
 ### Step 3️⃣: Compare Results
 
@@ -137,7 +83,7 @@ python backend/app.py
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 ml-model-comparison-dashboard/
@@ -157,40 +103,11 @@ ml-model-comparison-dashboard/
 │
 ├── Dockerfile                     # Docker container config
 ├── docker-compose.yml            # Multi-container setup
-├── .gitignore                    # Git ignore rules
 └── README.md                     # This file
 ```
-
 ---
 
-## 🔧 Configuration
-
-### Environment Variables
-
-Create a `.env` file in the root directory (optional):
-
-```env
-FLASK_ENV=development
-FLASK_DEBUG=True
-SERVER_PORT=5000
-```
-
-### Hyperparameter Defaults
-
-Edit `backend/ml_models.py` to adjust default hyperparameters:
-
-```python
-'Random Forest': RandomForestClassifier(
-    n_estimators=50,      # Increase for better accuracy (slower)
-    max_depth=10,         # Limit tree depth to prevent overfitting
-    random_state=42,
-    n_jobs=-1            # Use all CPU cores
-)
-```
-
----
-
-## 📊 API Endpoints
+##  API Endpoints
 
 ### Backend Endpoints
 
@@ -203,108 +120,47 @@ Edit `backend/ml_models.py` to adjust default hyperparameters:
 | `/feature-importance/<model>` | GET | Get feature importance |
 | `/tune` | POST | Tune hyperparameters & retrain |
 
-### Request/Response Examples
-
-**Upload Data**
-```bash
-curl -X POST http://localhost:5000/upload \
-  -F "file=@dataset.csv" \
-  -F "target_column=Churn"
-```
-
-**Train Models**
-```bash
-curl -X POST http://localhost:5000/train
-```
-
-**Get Feature Importance**
-```bash
-curl http://localhost:5000/feature-importance/Random%20Forest
-```
-
----
-
-## 🐛 Troubleshooting
-
-### Issue: Port 5000 Already in Use
-
-**Solution**: Change port in `docker-compose.yml`
-
-```yaml
-services:
-  ml-dashboard:
-    ports:
-      - "5001:5000"  # Change to 5001 or any available port
-```
-
-Then access: `http://localhost:5001`
-
----
-
-### Issue: Docker Build Fails
-
-**Solution**: Rebuild without cache
-
-```bash
-docker-compose down
-docker-compose build --no-cache
-docker-compose up
-```
-
 ---
 
 ### Issue: Training Takes Too Long
 
-**Solution**: Reduce model complexity in `ml_models.py`
-
-```python
-# Reduce from 100 to 50
-'Random Forest': RandomForestClassifier(n_estimators=50)
-```
-
----
-
-### Issue: "No module named 'pkg_resources'"
-
-**Solution**: On Windows PowerShell (as Administrator)
-
-```bash
-python -m pip install --upgrade pip setuptools wheel
-pip install -r backend/requirements.txt
-```
 
 ---
 
 ### Issue: CSV Upload Not Working
 
 **Checklist:**
-- ✅ File is `.csv` format
-- ✅ Has header row with column names
-- ✅ Target column exists in data
-- ✅ No spaces in column names (use underscores)
-- ✅ File size < 50MB
+- File is `.csv` format
+- Has header row with column names
+- Target column exists in data
+- No spaces in column names (use underscores)
+- File size < 50MB
 
 ---
 
 ## 📦 Dependencies
 
 ### Backend
-- **Flask** - Web framework
-- **Flask-CORS** - Cross-origin support
-- **Pandas** - Data manipulation
-- **NumPy** - Numerical computing
-- **Scikit-learn** - ML algorithms
-- **XGBoost** - Gradient boosting
-- **Matplotlib** - Visualization
-- **Seaborn** - Statistical plots
-- **Plotly** - Interactive charts
-- **Joblib** - Model serialization
+- Python
+- Flask
+- Scikit-Learn
+- XGBoost
+- Pandas
+- NumPy
 
-See `backend/requirements.txt` for exact versions.
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+- Plotly.js
+
+### Deployment
+- Docker
+- Render
 
 ---
 
-## 💡 Usage Examples
+## Usage Examples
 
 ### Example 1: Customer Churn Prediction
 
@@ -313,8 +169,8 @@ Dataset: Telecom customer data
 Target: Churn (Yes/No)
 Features: Tenure, Monthly Charges, Contract Length, etc.
 
-Results: Random Forest achieves 85% accuracy
-Best Feature: Contract Length (0.42 importance)
+Results: Decision Tree achieves 98% accuracy
+Best Feature: Support Calls (0.36 importance)
 ```
 
 ### Example 2: House Price Prediction
@@ -330,53 +186,32 @@ Best Feature: Square Feet (0.65 importance)
 
 ---
 
-## 🎓 Learning Outcomes
-
-By using this dashboard, you'll learn:
-
-- [ ] **Data Preprocessing**: Cleaning and preparing data for ML
-- [ ] **Model Training**: Working with 7 different ML algorithms
-- [ ] **Model Evaluation**: Understanding performance metrics
-- [ ] **Feature Engineering**: Identifying important features
-- [ ] **Hyperparameter Tuning**: Optimizing model performance
-- [ ] **Web Development**: Building ML web applications
-- [ ] **Docker**: Containerizing applications
+## Example Workflow
+1. Upload CSV dataset
+2. Select target column
+3. Preprocess data automatically
+4. Train all models
+5. Compare performance metrics
+6. Analyze feature importance
+7. Tune hyperparameters
+8. Select best-performing model
 
 ---
 
-## 🚀 Advanced Usage
+## Learning Outcomes
 
-### Using with Your Own Datasets
+### This project demonstrates:
 
-1. **Prepare your CSV** with features and target column
-2. **Auto Remove feature to remove least important feature** (CustomerID, RowNumber, etc.)
-3. **Handle missing values** (drop or impute)
-4. **Ensure numeric/categorical consistency**
-5. **Upload to dashboard**
-
-### Exporting Results
-
-After training, you can:
-- 📸 Screenshot the metrics table
-- 📊 Export feature importance plots
-- 💾 Check for the best model parameters
-- 📝 Document model performance
+- Machine Learning Pipeline Design
+- Data Preprocessing Automation
+- Model Evaluation & Comparison
+- Feature Engineering Concepts
+- Full-Stack ML Application Development
+- REST API Development
+- Docker Containerization
+- Interactive Data Visualization
 
 ---
-
-## 🔮 Future Enhancements
-
-### Planned Features
-- [ ] Cross-validation support
-- [ ] Model persistence (save/load trained models)
-- [ ] Batch prediction API
-- [ ] Advanced data visualization (PCA, t-SNE)
-- [ ] Anomaly detection
-- [ ] Time series forecasting
-- [ ] Ensemble methods
-- [ ] Model explainability (SHAP values)
-- [ ] Real-time model monitoring
-- [ ] Model deployment options
 
 ### Community Contributions
 Pull requests are welcome! Please follow:
@@ -388,13 +223,13 @@ Pull requests are welcome! Please follow:
 
 ---
 
-## 📞 Support & Contact
+## Support & Contact
 
 ### Getting Help
 
-- 📖 Check **Troubleshooting** section above
-- 🐛 Open an issue on GitHub
-- 💬 Review code comments in source files
+- Check **Troubleshooting** section above
+- Open an issue on GitHub
+- Review code comments in source files
 
 ### Resources
 
@@ -405,13 +240,13 @@ Pull requests are welcome! Please follow:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License** - see LICENSE file for details.
 
 ---
 
-## 👤 Author
+## Author
 
 **Lovishka Soni**
 - GitHub: [@Lovishkasoni](https://github.com/Lovishkasoni)
@@ -426,43 +261,10 @@ This project is licensed under the **MIT License** - see LICENSE file for detail
 
 ---
 
-## 📈 Project Statistics
-
-- **Models Supported**: 7
-- **Metrics Types**: 5+
-- **Data Formats**: CSV
-- **Response Time**: < 60 seconds
-- **Deployment**: Docker-ready
-
----
-
-## 🎯 Quick Reference
-
-### Common Commands
-
-```bash
-# Start dashboard
-docker-compose up
-
-# Rebuild after changes
-docker-compose build --no-cache
-
-# Stop dashboard
-docker-compose down
-
-# View logs
-docker-compose logs -f
-
-# Remove everything
-docker-compose down -v
-```
-
----
-
 
 Give this project a ⭐ if you found it helpful!
 
 ---
 
-**Last Updated**: April 20, 2026
+**Last Updated**: June 26, 2026
 **Version**: 1.0.0
